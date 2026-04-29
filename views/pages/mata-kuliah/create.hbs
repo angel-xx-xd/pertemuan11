@@ -1,17 +1,27 @@
 <h1>Create Mata Kuliah</h1>
 
+{{#if pesanError}}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {{#each pesanError}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
 <form action="/mata-kuliah/create" method="POST">
     <div class="mb-3">
         <label for="kode" class="form-label">Kode Mata Kuliah</label>
-        <input type="text" class="form-control" id="kode" name="kode">
+        <input type="text" class="form-control" id="kode" name="kode" value="{{formData.kode}}">
     </div>
     <div class="mb-3">
         <label for="nama" class="form-label">Nama Mata Kuliah</label>
-        <input type="text" class="form-control" id="nama" name="nama">
+        <input type="text" class="form-control" id="nama" name="nama" value="{{formData.nama}}">
     </div>
     <div class="mb-3">
         <label for="sks" class="form-label">SKS</label>
-        <input type="number" class="form-control" id="sks" name="sks">
+        <input type="number" class="form-control" id="sks" name="sks" value="{{formData.sks}}">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

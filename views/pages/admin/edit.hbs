@@ -1,5 +1,15 @@
 <h1>Edit Admin</h1>
 
+{{#if pesanError}}
+    <div class="alert alert-danger">
+        <ul>
+            {{#each pesanError}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
 <form action="/admin/edit/{{admin.id}}" method="POST">
     <div class="mb-3">
         <label for="nama" class="form-label">Nama</label>

@@ -1,5 +1,7 @@
 const db = require('../database/config');
 
+const bcrypt = require('bcrypt');
+
 function ambilSemuaAdmin(){
     return db.prepare(`
         SELECT id, nama, email 

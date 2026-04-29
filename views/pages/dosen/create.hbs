@@ -1,5 +1,15 @@
 <h1>Create Dosen</h1>
 
+{{#if pesanError}}
+    <div class="alert alert-danger">
+        <ul>
+            {{#each pesanError}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
 <form action="/dosen/create" method="POST">
     <div class="mb-3">
         <label for="nidn" class="form-label">NIDN</label>

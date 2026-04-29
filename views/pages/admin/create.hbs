@@ -1,5 +1,15 @@
 <h1>Create Admin</h1>
 
+{{#if pesanError}}
+    <div class="alert alert-danger">
+        <ul>
+            {{#each pesanError}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
 <form action="/admin/create" method="POST">
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
