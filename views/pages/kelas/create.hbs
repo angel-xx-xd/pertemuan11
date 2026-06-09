@@ -46,11 +46,12 @@
 
   <div class="mb-3">
     <label for="semester" class="form-label">Semester</label>
-    <select class="form-select" id="semester" name="semester" required>
+    <input type="number" class="form-control" name="semester" value="{{formData.semester}}" required>
+    {{!-- <select class="form-select" id="semester" name="semester" required>
       <option value="">-- Pilih Semester --</option>
       <option value="Gasal" {{isSelected "Gasal" formData.semester}}>Gasal</option>
       <option value="Genap" {{isSelected "Genap" formData.semester}}>Genap</option>
-    </select>
+    </select> --}}
   </div>
 
   <div class="mb-3">

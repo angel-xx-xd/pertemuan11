@@ -37,28 +37,29 @@
 
   <div class="mb-3">
     <label for="nama_kelas" class="form-label">Nama Kelas</label>
-    <input type="text" class="form-control" id="nama_kelas" name="nama_kelas" 
+    <input type="text" class="form-control" id="nama_kelas" name="nama_kelas"
             value="{{kelas.nama_kelas}}" placeholder="misal: TI-A, SI-B" required>
   </div>
 
   <div class="mb-3">
     <label for="semester" class="form-label">Semester</label>
-    <select class="form-select" id="semester" name="semester" required>
+    <input type="number" class="form-control" name="semester" value="{{kelas.semester}}" required>
+    {{!-- <select class="form-select" id="semester" name="semester" required>
       <option value="">-- Pilih Semester --</option>
       <option value="Gasal" {{isSelected kelas.semester "Gasal"}}>Gasal</option>
       <option value="Genap" {{isSelected kelas.semester "Genap"}}>Genap</option>
-    </select>
+    </select> --}}
   </div>
 
   <div class="mb-3">
     <label for="tahun_akademik" class="form-label">Tahun Akademik</label>
-    <input type="text" class="form-control" id="tahun_akademik" name="tahun_akademik" 
+    <input type="text" class="form-control" id="tahun_akademik" name="tahun_akademik"
             value="{{kelas.tahun_akademik}}" placeholder="misal: 2024/2025" required>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Peserta Mahasiswa</label>
-    
+
     <!-- Filter by Angkatan and Program Studi -->
     <div class="row mb-2">
       <div class="col-md-6">
@@ -85,10 +86,10 @@
       {{#unless mahasiswa.length}}
       <p class="text-muted">Tidak ada mahasiswa yang tersedia</p>
       {{/unless}}
-      
+
       {{#each mahasiswa}}
       <div class="form-check mahasiswa-item" data-angkatan="{{angkatan}}" data-program-studi="{{program_studi}}">
-        <input class="form-check-input" type="checkbox" id="mahasiswa_{{id}}" 
+        <input class="form-check-input" type="checkbox" id="mahasiswa_{{id}}"
                 name="peserta_mahasiswa" value="{{id}}"
                 {{isChecked ../peserta_ids id}}>
         <label class="form-check-label" for="mahasiswa_{{id}}">
@@ -110,14 +111,14 @@ function applyFilters() {
   const angkatanFilter = document.getElementById('filterAngkatan').value;
   const programStudiFilter = document.getElementById('filterProgramStudi').value;
   const mahasiswaItems = document.querySelectorAll('.mahasiswa-item');
-  
+
   mahasiswaItems.forEach(item => {
       const angkatan = item.getAttribute('data-angkatan');
       const programStudi = item.getAttribute('data-program-studi');
-      
+
       const angkatanMatch = !angkatanFilter || angkatan === angkatanFilter;
       const programStudiMatch = !programStudiFilter || programStudi === programStudiFilter;
-      
+
       if (angkatanMatch && programStudiMatch) {
           item.style.display = 'block';
       } else {

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 function ambilSemuaDosen(){
     return db.prepare(`
-        SELECT pengguna.id, dosen.nidn, dosen.departemen, pengguna.nama, pengguna.email 
+        SELECT dosen.id, dosen.nidn, dosen.departemen, pengguna.nama, pengguna.email 
         FROM dosen
         JOIN pengguna ON dosen.pengguna_id = pengguna.id
       `).all();

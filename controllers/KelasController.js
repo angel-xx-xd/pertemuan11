@@ -43,10 +43,16 @@ function validateKelas(mata_kuliah_id, dosen_id, nama_kelas, semester, tahun_aka
     }
 
     // Validate semester
-    if (!semester || semester.trim() === '') {
+    /* if (!semester || semester.trim() === '') {
         pesanError.push("Semester harus dipilih");
     } else if (!['Gasal', 'Genap'].includes(semester.trim())) {
         pesanError.push("Semester harus Gasal atau Genap");
+    } */
+    // semester is required and must between 1 - 6 
+    if (!semester || semester.trim() === '') {
+        pesanError.push("Semester harus dipilih");
+    } else if (!['1', '2', '3', '4', '5', '6' ,'7', '8'].includes(semester.trim())) {
+        pesanError.push("Semester harus antara 1 dan 8");
     }
 
     // Validate tahun_akademik
