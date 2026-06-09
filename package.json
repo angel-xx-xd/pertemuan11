@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "db:init": "node database/init.js"
+    "db:init": "rm absensi-ibbi.db && node database/init.js",
+    "db:seed": "node database/seeder.js"
   },
   "keywords": [],
   "author": "",

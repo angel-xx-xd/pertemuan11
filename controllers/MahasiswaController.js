@@ -1,4 +1,4 @@
-const MahasiswaModel = require('../models/Admin');
+const MahasiswaModel = require('../models/Mahasiswa');
 
 function validateMahasiswa(nim, nama, email, program_studi, angkatan) {
   const pesanError = [];
@@ -58,7 +58,8 @@ function showCreateForm(req, res) {
 }
 
 function listMahasiswa(req, res) {
-  const mahasiswa = MahasiswaModel.ambilSemuaMahasiswa();
+    const mahasiswa = MahasiswaModel.ambilSemuaMahasiswa();
+  
 
   res.render('pages/mahasiswa/list', { mahasiswa });
 }

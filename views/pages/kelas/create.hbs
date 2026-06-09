@@ -1,0 +1,133 @@
+<h1>Tambah Kelas</h1>
+
+{{#if pesanError}}
+<div class="alert alert-danger" role="alert">
+  <ul>
+    {{#each pesanError}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+</div>
+{{/if}}
+
+<form action="/kelas/create" method="POST">
+
+  <div class="mb-3">
+    <label for="nama_kelas" class="form-label">Nama Kelas</label>
+    <input type="text" class="form-control" id="nama_kelas" name="nama_kelas" value="{{formData.nama_kelas}}"
+      placeholder="misal: TI-A, SI-B" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="mata_kuliah_id" class="form-label">Mata Kuliah</label>
+    <select class="form-select" id="mata_kuliah_id" name="mata_kuliah_id" required>
+      <option value="">-- Pilih Mata Kuliah --</option>
+      {{#each mataKuliah}}
+      <option value="{{id}}" {{isSelected id ../formData.mata_kuliah_id}}>
+        {{nama}} ({{kode}})
+      </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="dosen_id" class="form-label">Dosen</label>
+    <select class="form-select" id="dosen_id" name="dosen_id" required>
+      <option value="">-- Pilih Dosen --</option>
+      {{#each dosen}}
+      <option value="{{id}}" {{isSelected id ../formData.dosen_id}}>
+        {{nama}} ({{nidn}})
+      </option>
+      {{/each}}
+    </select>
+  </div>
+
+
+
+  <div class="mb-3">
+    <label for="semester" class="form-label">Semester</label>
+    <select class="form-select" id="semester" name="semester" required>
+      <option value="">-- Pilih Semester --</option>
+      <option value="Gasal" {{isSelected "Gasal" formData.semester}}>Gasal</option>
+      <option value="Genap" {{isSelected "Genap" formData.semester}}>Genap</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="tahun_akademik" class="form-label">Tahun Akademik</label>
+    <input type="text" class="form-control" id="tahun_akademik" name="tahun_akademik"
+      value="{{formData.tahun_akademik}}" placeholder="misal: 2024/2025" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Peserta Mahasiswa</label>
+
+    <!-- Filter by Angkatan and Program Studi -->
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <label for="filterAngkatan" class="form-label small">Filter Angkatan</label>
+        <select class="form-select form-select-sm" id="filterAngkatan">
+          <option value="">-- Semua Angkatan --</option>
+          {{#each angkatanList}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="filterProgramStudi" class="form-label small">Filter Program Studi</label>
+        <select class="form-select form-select-sm" id="filterProgramStudi">  
+          <option value="">-- Semua Program Studi --</option>
+          {{#each programStudiList}}
+          <option value="{{this.value}}">{{this.label}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+
+    <div class="border p-3" style="max-height: 400px; overflow-y: auto;">
+      {{#unless mahasiswa.length}}
+      <p class="text-muted">Tidak ada mahasiswa yang tersedia</p>
+      {{/unless}}
+
+      {{#each mahasiswa}}
+      <div class="form-check mahasiswa-item" data-angkatan="{{angkatan}}" data-program-studi="{{program_studi}}">
+        <input class="form-check-input" type="checkbox" id="mahasiswa_{{id}}" name="peserta_mahasiswa" value="{{id}}"
+          {{isChecked ../peserta_mahasiswa_selected id}}>
+        <label class="form-check-label" for="mahasiswa_{{id}}">
+          {{nama}} ({{nim}}) - {{program_studi}} {{angkatan}}
+        </label>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="/kelas/list" class="btn btn-secondary">Batal</a>
+    <button type="submit" class="btn btn-primary">Simpan Kelas</button>
+  </div>
+</form>
+
+<script>
+function applyFilters() {
+    const angkatanFilter = document.getElementById('filterAngkatan').value;
+    const programStudiFilter = document.getElementById('filterProgramStudi').value;
+    const mahasiswaItems = document.querySelectorAll('.mahasiswa-item');
+    
+    mahasiswaItems.forEach(item => {
+        const angkatan = item.getAttribute('data-angkatan');
+        const programStudi = item.getAttribute('data-program-studi');
+        
+        const angkatanMatch = !angkatanFilter || angkatan === angkatanFilter;
+        const programStudiMatch = !programStudiFilter || programStudi === programStudiFilter;
+        
+        if (angkatanMatch && programStudiMatch) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+document.getElementById('filterAngkatan').addEventListener('change', applyFilters);
+document.getElementById('filterProgramStudi').addEventListener('change', applyFilters);
+</script>

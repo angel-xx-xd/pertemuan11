@@ -1,0 +1,48 @@
+<h1>Daftar Kelas</h1>
+<a href="/kelas/create" class="btn btn-primary mb-3">Tambah Kelas</a>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Nama Kelas</th>
+      <th>Mata Kuliah</th>
+      <th>Dosen</th>
+      <th>Semester</th>
+      <th>Tahun Akademik</th>
+      <th>Jumlah Peserta</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#unless kelas.length}}
+    <tr>
+      <td colspan="9" class="text-center">
+        Tidak ada kelas yang ditemukan <br>
+        <a href="/kelas/create" class="link">Tambah Kelas</a>
+      </td>
+    </tr>
+    {{/unless}}
+
+    {{#each kelas}}
+    <tr>
+      <td>{{inc @index}}</td>
+      <td>{{nama_kelas}}</td>
+      <td>{{nama_mata_kuliah}} ({{kode_mata_kuliah}})</td>
+      <td>{{nama_dosen}}</td>
+      <td>{{semester}}</td>
+      <td>{{tahun_akademik}}</td>
+      <td>{{jumlah_peserta}} peserta</td>
+      <td>
+        <a href="/kelas/edit/{{id}}" class="btn btn-warning w-100">Edit</a>
+      </td>
+      <td>
+        <form action="/kelas/delete/{{id}}" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-danger w-100"
+            onclick="return confirm('Apakah Anda yakin ingin menghapus kelas ini?');">Hapus</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
